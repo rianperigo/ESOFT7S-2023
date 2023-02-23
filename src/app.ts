@@ -3,6 +3,8 @@ import express from 'express'
 // 27 - importar a constante routes que está em routes.ts
 import routes from './routes'
 
+import mongoose from 'mongoose'
+
 // 1 - criamos uma classe app
 class App {
     // 3 - Definimos uma propriedade chamada Express, que deve
@@ -22,6 +24,9 @@ class App {
         // 28 - estamos dizendo ao construtor que quem instanciar essa classe
         // já vai por padrão executar o método routes
         this.routes()
+        // 32 - chamando o método database e garantindo que ele será executado sempre que a classe for instanciada
+        this.database()
+
     }
 
     // 6 - Criamos um método middleware
@@ -29,6 +34,20 @@ class App {
         // 7 - habilitando o express a ler/entender requisicoes em
         // formato json
         this.express.use(express.json())
+    }
+
+    // 29 - Criando um método database que será responsavel por fazer a conexão com o mongo
+    public async database() {
+        try {
+            // Estamos desabilitando a mensagem de depreciado para a strictQuery
+            mongoose.set("strictQuery", true)
+            // 30 - utilizando o mongoose e a função connect para conectar no nosso banco que está na nuvem
+            await mongoose.connect('mongodb+srv://thiagobussola:teste123@cluster0.yr6yk6b.mongodb.net/?retryWrites=true&w=majority')
+            console.log('Connect database success')
+
+        } catch (err) {
+            console.error('Connect database fail, error', err)
+        }
     }
 
     // 25 - Criamos um método chamado routes
