@@ -25,7 +25,7 @@ class App {
         // já vai por padrão executar o método routes
         this.routes()
         // 32 - chamando o método database e garantindo que ele será executado sempre que a classe for instanciada
-        this.database()
+        //this.database()
 
     }
 
@@ -42,6 +42,7 @@ class App {
             // Estamos desabilitando a mensagem de depreciado para a strictQuery
             mongoose.set("strictQuery", true)
             // 30 - utilizando o mongoose e a função connect para conectar no nosso banco que está na nuvem
+            // Conexão Mongoose + link de requisição : senha exposta
             await mongoose.connect('mongodb+srv://thiagobussola:teste123@cluster0.yr6yk6b.mongodb.net/?retryWrites=true&w=majority')
             console.log('Connect database success')
 
